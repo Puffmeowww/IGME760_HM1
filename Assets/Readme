@@ -1,0 +1,4 @@
+In this assignment I created 2 characters with different types of movements.
+One is the character that the player controls. This character will move to the location that the player clicks on. Based on the Dynamic Movement, It will slow down according to how close it is to the target location. 
+Another charater is a companion character that always follow the player-controlled character, using Kinetic Movement.
+
