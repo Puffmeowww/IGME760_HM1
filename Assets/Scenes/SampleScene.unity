@@ -309,16 +309,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 523168797}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99e283ed955901a48a5b5a161f00e00c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetRadius: 0.5
   rb: {fileID: 523168802}
-  maxSpeed: 3
-  maxAcceleration: 2
-  slowRadius: 2
+  maxSpeed: 10
+  maxAcceleration: 5
+  slowRadius: 5
   dt: 0.1
 --- !u!50 &523168802
 Rigidbody2D:
@@ -329,10 +329,10 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 523168797}
   m_BodyType: 0
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -354,7 +354,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 523168797}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e08b954940b79c24eb7d8308ac7e0ae6, type: 3}
   m_Name: 
