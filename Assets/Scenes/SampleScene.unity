@@ -276,7 +276,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
+  m_Sprite: {fileID: 2089190419519336973, guid: 9354b6a17521e8f49bff45b9712c6e4f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -309,16 +309,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 523168797}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99e283ed955901a48a5b5a161f00e00c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetRadius: 0.5
+  targetRadius: 0.1
   rb: {fileID: 523168802}
-  maxSpeed: 3
-  maxAcceleration: 2
-  slowRadius: 2
+  maxSpeed: 10
+  maxAcceleration: 5
+  slowRadius: 5
   dt: 0.1
 --- !u!50 &523168802
 Rigidbody2D:
@@ -329,10 +329,10 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 523168797}
   m_BodyType: 0
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -354,7 +354,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 523168797}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e08b954940b79c24eb7d8308ac7e0ae6, type: 3}
   m_Name: 
@@ -435,7 +435,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 82619b3a74f1cab4e8508b921af4de97, type: 3}
+  m_Sprite: {fileID: 4484260916678365845, guid: e6889b3d99e7e9c40bf8d5689c4334c8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

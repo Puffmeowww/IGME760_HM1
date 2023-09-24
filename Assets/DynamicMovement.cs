@@ -19,7 +19,6 @@ public class Movement : MonoBehaviour
     public float slowRadius = 2.0f;
     public float dt = 0.1f;
 
-    private Vector2 currentVelocity = default;
 
 
     // Start is called before the first frame update
@@ -40,21 +39,21 @@ public class Movement : MonoBehaviour
 
 
         //Get character position, direction and velocity
-        Vector2 characterPosition = new Vector2(this.transform.position.x, this.transform.position.y);
+        Vector2 characterPosition = rb.position;
         Vector2 direction = targetPosition - characterPosition;
-        //Vector2 velocity = direction.normalized * moveSpeed;
 
         //Get distance from the target
         float distance = direction.magnitude;
 
         if (distance <= targetRadius)
         {
+            //Stop the character immediately
+            rb.velocity = Vector2.zero; 
             return;
         }
 
-        float targetSpeed = 0;
-        Vector2 targetVelocity = default;
-
+        float targetSpeed = default;
+        
         //Check if the character is in slow radius
         if (distance > slowRadius)
         {
@@ -67,44 +66,28 @@ public class Movement : MonoBehaviour
 
 
         //Set target velocity
-        targetVelocity = direction.normalized * targetSpeed;
+        Vector2 targetVelocity = direction.normalized * targetSpeed;
 
         //Set accelaration
         Vector2 acceleration = targetVelocity - rb.velocity;
         acceleration /= dt;
 
+
+        //The acceleration cannot more than max accelaration
         if(acceleration.magnitude > maxAcceleration)
         {
             acceleration = acceleration.normalized * maxAcceleration;
         }
 
-        currentVelocity = new Vector2(
-            currentVelocity.x + acceleration.x * Time.deltaTime,
-            currentVelocity.y + acceleration.y * Time.deltaTime);
+        //Set the velocity
+        rb.velocity += acceleration * Time.deltaTime;
 
-        FaceTarget(currentVelocity);
-
-        rb.velocity = currentVelocity;
-
-        //Movement
-        if ((targetPosition - characterPosition).magnitude >= targetRadius)
-        {
-
-            //Make the character face the target
-
-
-            //Change the position
-            float newX = transform.position.x + rb.velocity.x * Time.deltaTime;
-            float newY = transform.position.y + rb.velocity.y * Time.deltaTime;
-
-            transform.position = new Vector2(newX, newY);
-        }
-
+        FaceTarget(rb.velocity);
 
     }
 
 
-
+    //Face target function
     public void FaceTarget(Vector3 velocity)
     {
         if(velocity.magnitude > 0)
