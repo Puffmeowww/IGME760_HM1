@@ -227,7 +227,6 @@ GameObject:
   - component: {fileID: 523168798}
   - component: {fileID: 523168801}
   - component: {fileID: 523168802}
-  - component: {fileID: 523168803}
   m_Layer: 0
   m_Name: GameCharacter
   m_TagString: Untagged
@@ -320,6 +319,8 @@ MonoBehaviour:
   maxAcceleration: 5
   slowRadius: 5
   dt: 0.1
+  maxRotationSpeed: 180
+  followTarget: {fileID: 0}
 --- !u!50 &523168802
 Rigidbody2D:
   serializedVersion: 4
@@ -347,20 +348,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &523168803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523168797}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e08b954940b79c24eb7d8308ac7e0ae6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 10
-  targetRadius: 0.5
 --- !u!1 &610271254
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,6 +443,8 @@ GameObject:
   - component: {fileID: 835350420}
   - component: {fileID: 835350419}
   - component: {fileID: 835350418}
+  - component: {fileID: 835350422}
+  - component: {fileID: 835350421}
   m_Layer: 0
   m_Name: Pet
   m_TagString: Untagged
@@ -470,7 +459,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 835350417}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ff7a3e892e545c4988d48385f6f7903, type: 3}
   m_Name: 
@@ -545,6 +534,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &835350421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835350417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e283ed955901a48a5b5a161f00e00c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRadius: 1
+  rb: {fileID: 835350422}
+  maxSpeed: 10
+  maxAcceleration: 3
+  slowRadius: 3
+  dt: 0.1
+  maxRotationSpeed: 180
+  followTarget: {fileID: 523168797}
+--- !u!50 &835350422
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835350417}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.01
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &942774260
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,6 +847,7 @@ MonoBehaviour:
   gridWorldSize: {x: 14.37, y: 10.06}
   nodeRadius: 0.1
   gizmosDensity: 0.05
+  onlyDisplayPathGizmos: 0
 --- !u!114 &1302326841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1033,7 +1070,7 @@ Transform:
   m_GameObject: {fileID: 1863315253}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6, y: -0.35, z: 0}
+  m_LocalPosition: {x: 6.82, y: -0.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

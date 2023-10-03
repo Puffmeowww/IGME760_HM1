@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class Pathfinding : MonoBehaviour
@@ -17,24 +18,33 @@ public class Pathfinding : MonoBehaviour
 
     void Update()
     {
-        FindPath(seeker.position, target.position);
+        //FindPath(seeker.position, target.position);
+        if(Input.GetButtonDown("Jump"))
+        {
+            FindPath(seeker.position, target.position);
+        }
     }
 
     void FindPath(Vector3 startPosition, Vector3 targetPosition)
     {
+        //Test time
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+
         ANode startNode = grid.NodeFromWorldPoint(startPosition);
         ANode targetNode = grid.NodeFromWorldPoint(targetPosition);
 
-        List<ANode> openSet = new List<ANode>();
+        //
+        //List<ANode> openSet = new List<ANode>();
+        Heap<ANode> openSet = new Heap<ANode>(grid.MaxSize);
         HashSet<ANode> closedSet = new HashSet<ANode>();
 
         openSet.Add(startNode);
 
         while(openSet.Count >0)
         {
-            ANode currentNode = openSet[0];
-
-            //find smallest cost in the openlist, and set currentnode to that smallest cost node
+            ANode currentNode = openSet.RemoveFirst();
+/*          //find smallest cost in the openlist, and set currentnode to that smallest cost node
             for(int i=0; i<openSet.Count;i++)
             {
                 if(openSet[i].fCost < currentNode.fCost || openSet[i].fCost == currentNode.fCost && openSet[i].hCost < currentNode.hCost)
@@ -42,15 +52,18 @@ public class Pathfinding : MonoBehaviour
                     currentNode = openSet[i];
                 }
             }
-
-
-            openSet.Remove(currentNode);
+            openSet.Remove(currentNode);*/
             closedSet.Add(currentNode);
 
             //Find the shortest path
             if(currentNode == targetNode)
             {
                 RetracePath(startNode, targetNode);
+
+                //Test Time
+                sw.Stop();
+                print("Path found:" + sw.ElapsedMilliseconds + "ms");
+
                 return;
             }
 
@@ -113,12 +126,6 @@ public class Pathfinding : MonoBehaviour
 
         grid.path = path;
     }
-
-
-
-
-
-
 
 
 

@@ -21,6 +21,10 @@ public class AGrid : MonoBehaviour
 
     public List<ANode> path;
 
+
+    //test
+    public bool onlyDisplayPathGizmos;
+
     void Start()
     {
         //Calculate numbers of grids
@@ -33,30 +37,32 @@ public class AGrid : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.position, new Vector2(gridWorldSize.x, gridWorldSize.y));
+/*        Gizmos.DrawWireCube(transform.position, new Vector2(gridWorldSize.x, gridWorldSize.y));
+
         if (grid != null)
-        {
-            //Test the player node
-            ANode playerNode = NodeFromWorldPoint(player.position);
-
-            foreach (ANode n in grid)
             {
-                Gizmos.color = (n.walkable) ? Color.yellow : Color.red;
+                //Test the player node
+                ANode playerNode = NodeFromWorldPoint(player.position);
 
-                if (path != null)
-                    if (path.Contains(n))
-                        Gizmos.color = Color.black;
-
-                //Test player node
-                if (playerNode == n)
+                foreach (ANode n in grid)
                 {
-                    Gizmos.color = Color.blue;
-                }
+                    Gizmos.color = (n.walkable) ? Color.yellow : Color.red;
 
-                //Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
-                Gizmos.DrawCube(n.worldPosition, Vector2.one * (nodeDiameter - gizmosDensity));
-            }
-        }
+                    if (path != null)
+                        if (path.Contains(n))
+                            Gizmos.color = Color.black;
+
+                    //Test player node
+                    if (playerNode == n)
+                    {
+                        Gizmos.color = Color.blue;
+                    }
+
+                    //Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
+                    Gizmos.DrawCube(n.worldPosition, Vector2.one * (nodeDiameter - gizmosDensity));
+                }
+            }*/
+
     }
 
 
@@ -131,5 +137,14 @@ public class AGrid : MonoBehaviour
     {
         
     }
+
+    public int MaxSize
+    {
+        get
+        {
+            return gridSizeX * gridSizeY;
+        }
+    }
+
 
 }
