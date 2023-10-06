@@ -25,7 +25,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         //When the player click on a new position
         if (followTarget == default && Input.GetMouseButtonDown(0))
         {
