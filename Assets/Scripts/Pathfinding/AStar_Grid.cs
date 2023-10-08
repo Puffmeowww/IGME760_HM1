@@ -19,50 +19,35 @@ public class AGrid : MonoBehaviour
     float nodeDiameter;
     int gridSizeX, gridSizeY;
 
-    public List<ANode> path;
+    public bool displayGridGizmos;
 
-
-    //test
-    public bool onlyDisplayPathGizmos;
-
-    void Start()
+    void Awake()
     {
         //Calculate numbers of grids
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
-
         CreateGrid();
     }
 
     void OnDrawGizmos()
     {
-/*        Gizmos.DrawWireCube(transform.position, new Vector2(gridWorldSize.x, gridWorldSize.y));
+        Gizmos.DrawWireCube(transform.position, new Vector2(gridWorldSize.x, gridWorldSize.y));
+        if (grid != null && displayGridGizmos)
+        {
+            ANode playerNode = NodeFromWorldPoint(player.position);
 
-        if (grid != null)
+            foreach (ANode n in grid)
             {
-                //Test the player node
-                ANode playerNode = NodeFromWorldPoint(player.position);
-
-                foreach (ANode n in grid)
+                Gizmos.color = (n.walkable) ? Color.yellow : Color.red;
+                //Player node
+                if (playerNode == n)
                 {
-                    Gizmos.color = (n.walkable) ? Color.yellow : Color.red;
-
-                    if (path != null)
-                        if (path.Contains(n))
-                            Gizmos.color = Color.black;
-
-                    //Test player node
-                    if (playerNode == n)
-                    {
-                        Gizmos.color = Color.blue;
-                    }
-
-                    //Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
-                    Gizmos.DrawCube(n.worldPosition, Vector2.one * (nodeDiameter - gizmosDensity));
+                    Gizmos.color = Color.blue;
                 }
-            }*/
-
+                Gizmos.DrawCube(n.worldPosition, Vector2.one * (nodeDiameter - gizmosDensity));
+            }
+        }
     }
 
 
@@ -76,13 +61,7 @@ public class AGrid : MonoBehaviour
             for (int y = 0; y < gridSizeY; y++)
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.up * (y * nodeDiameter + nodeRadius);
-               //Check Collision
-                /*if(Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask))
-                {
-                    Debug.Log("collision");
-                }*/
-                //bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius,unwalkableMask));
-                bool walkable = !(Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask));
+                bool walkable = !(Physics2D.OverlapBox(worldPoint, new Vector2(nodeDiameter - gizmosDensity, nodeDiameter - gizmosDensity), 0f, unwalkableMask));
                 grid[x, y] = new ANode(walkable, worldPoint,x,y);
             }
         }
@@ -124,18 +103,13 @@ public class AGrid : MonoBehaviour
                 if(checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
                 {
                     neighbours.Add(grid[checkX, checkY]);
+
                 }
             }
         }
 
 
         return neighbours;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public int MaxSize
@@ -145,6 +119,4 @@ public class AGrid : MonoBehaviour
             return gridSizeX * gridSizeY;
         }
     }
-
-
 }
