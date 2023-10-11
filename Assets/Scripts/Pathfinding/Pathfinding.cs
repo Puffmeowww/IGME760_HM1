@@ -6,38 +6,46 @@ using UnityEngine;
 
 public class Pathfinding : MonoBehaviour
 {
+    //A Request manager for pathfindiing
     PathRequestManager requestManager;
 
+    //The grid on the map
     AGrid grid;
 
     void Awake()
     {
+        //Get the request manager and grid
         requestManager = GetComponent<PathRequestManager>();
         grid = GetComponent<AGrid>();
     }  
 
     IEnumerator FindPath(Vector3 startPosition, Vector3 targetPosition)
     {
+        //All the waypoints in the path
         Vector3[] waypoints = new Vector3[0];
+        //If find the path successfully
         bool pathSuccess = false;
 
+        //Get the node 
         ANode startNode = grid.NodeFromWorldPoint(startPosition);
         ANode targetNode = grid.NodeFromWorldPoint(targetPosition);
 
+        //Check if the start node and target node walkable
         if (startNode.walkable && targetNode.walkable)
         {
-
+            
             Heap<ANode> openSet = new Heap<ANode>(grid.MaxSize);
             HashSet<ANode> closedSet = new HashSet<ANode>();
 
             openSet.Add(startNode);
 
+            //Keep checking nodes in Open List
             while (openSet.Count > 0)
             {
                 ANode currentNode = openSet.RemoveFirst();
                 closedSet.Add(currentNode);
 
-                //Find the shortest path
+                //Found the shortest path successfully
                 if (currentNode == targetNode)
                 {
                     pathSuccess = true;
@@ -61,6 +69,7 @@ public class Pathfinding : MonoBehaviour
                         neighbour.hCost = GetDistance(neighbour, targetNode);
                         neighbour.parent = currentNode;
 
+                        //If add the neighbour to the open list
                         if (!openSet.Contains(neighbour))
                         {
                             openSet.Add(neighbour);
@@ -76,6 +85,7 @@ public class Pathfinding : MonoBehaviour
         }
         yield return null;
 
+        //If found path, retrace the path to waypoints
         if(pathSuccess)
         {
             waypoints = RetracePath(startNode, targetNode);
@@ -84,6 +94,7 @@ public class Pathfinding : MonoBehaviour
 
     }
 
+    //Calculate distance between two nodes
     int GetDistance(ANode nodeA, ANode nodeB)
     {
         int dstX = Mathf.Abs(nodeA.gridX - nodeB.gridX);
@@ -94,6 +105,7 @@ public class Pathfinding : MonoBehaviour
         return 14 * dstX + 10 * (dstY - dstX);
     }
 
+    //Retrace all nodes' parents and form a list of waypoints
     Vector3[] RetracePath(ANode startNode, ANode endNode)
     {
         List<ANode> path = new List<ANode>();
@@ -112,6 +124,7 @@ public class Pathfinding : MonoBehaviour
 
     }
 
+    //Check if need to change direction and delete some waypoints
     Vector3[] SimplifyPath(List<ANode> path, ANode startNode)
     {
         List<Vector3> waypoints = new List<Vector3>();
@@ -131,6 +144,7 @@ public class Pathfinding : MonoBehaviour
 
     }
 
+    //Called by PathRequestManager and start the coroutine
     public void StartFindPath(Vector3 startPos, Vector3 targetPos)
     {
         StartCoroutine(FindPath(startPos, targetPos));

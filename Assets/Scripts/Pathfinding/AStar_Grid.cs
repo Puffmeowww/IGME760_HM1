@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AGrid : MonoBehaviour
 {
-    //Player
+    //Test: Player location
     public Transform player;
     //Call unwalkable mask
     public LayerMask unwalkableMask;

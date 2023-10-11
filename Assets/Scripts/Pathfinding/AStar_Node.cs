@@ -5,10 +5,12 @@ using UnityEngine;
 public class ANode : IHeapItem<ANode>
 {
 
+    //If the node is walkable
     public bool walkable;
     //Node's world pos
     public Vector3 worldPosition;
 
+    //The x and y position in the grid
     public int gridX;
     public int gridY;
 

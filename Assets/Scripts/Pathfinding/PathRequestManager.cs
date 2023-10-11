@@ -32,6 +32,7 @@ public class PathRequestManager : MonoBehaviour
         instance.TryProcessNext();
     }
 
+    //Process the next request
     void TryProcessNext()
     {
         if(!isProcessingPath && pathRequestQueue.Count > 0)
@@ -42,6 +43,7 @@ public class PathRequestManager : MonoBehaviour
         }
     }
 
+    //Called by the pathfinding, get if find path successfully
     public void FinishedProcessingPath(Vector3[] path, bool success)
     {
         currentPathRequest.callback(path, success);
@@ -50,8 +52,8 @@ public class PathRequestManager : MonoBehaviour
     }
 
 
-    //encapsulate a pathfinding request with start and end points and a callback.
-    //It has a constructor to initialize its fields.
+    //encapsulate a pathfinding request with start and end points and a callback
+    //It has a constructor to initialize its fields
     struct PathRequest
     {
         public Vector3 pathStart;
